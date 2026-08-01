@@ -27,7 +27,10 @@ public class LoginPage {
     }
 
     public void login(String username, String password) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+        // Ожидаем, что URL содержит saucedemo.com
+        wait.until(ExpectedConditions.urlContains("saucedemo.com"));
 
         // Ждем появления поля логина
         WebElement userInput = wait.until(
@@ -37,8 +40,11 @@ public class LoginPage {
         userInput.clear();
         userInput.sendKeys(username);
 
-        driver.findElement(passwordInput).clear();
-        driver.findElement(passwordInput).sendKeys(password);
+        WebElement passInput = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(passwordInput)
+        );
+        passInput.clear();
+        passInput.sendKeys(password);
 
         driver.findElement(loginButton).click();
     }

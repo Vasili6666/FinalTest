@@ -4,6 +4,7 @@ import com.saucedemo.pages.*;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -11,8 +12,17 @@ import org.junit.jupiter.params.provider.ValueSource;
 @Epic("SauceDemo E2E Flows")
 public class SauceDemoTest extends BaseTest {
 
+    // Гарантированно закрываем браузер после каждого прогона параметра
+    @AfterEach
+    public void closeBrowser() {
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
+    }
+
     @ParameterizedTest
-    @ValueSource(strings = {"chrome"})
+    @ValueSource(strings = {"chrome", "edge"})
     @Feature("UC-1: Checkout Flow (One Item)")
     @Description("Проверка оформления заказа с одним товаром")
     public void testCheckoutFlowOneItem(String browser) {
@@ -44,7 +54,7 @@ public class SauceDemoTest extends BaseTest {
 
         // 5. Заполнение формы покупателя и переход на Шаг 2
         stepOne.fillInformation("John", "Doe", "12345");
-        stepOne.clickContinue(); // <--- ДОБАВЛЕНО: переход на шаг 2
+        stepOne.clickContinue();
 
         // 6. Завершение заказа и проверка сообщения
         stepTwo.clickFinish();
@@ -53,7 +63,7 @@ public class SauceDemoTest extends BaseTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"chrome"})
+    @ValueSource(strings = {"chrome", "edge"})
     @Feature("UC-2: Checkout Flow (Several Items)")
     @Description("Проверка оформления заказа с несколькими товарами и сверкой итоговой суммы")
     public void testCheckoutFlowSeveralItems(String browser) {
@@ -85,7 +95,7 @@ public class SauceDemoTest extends BaseTest {
         // 4. Переход к оформлению и заполнение данных
         cartPage.clickCheckout();
         stepOne.fillInformation("Jane", "Doe", "54321");
-        stepOne.clickContinue(); // <--- ДОБАВЛЕНО: переход на шаг 2
+        stepOne.clickContinue();
 
         // 5. Проверка корректности итоговой суммы (на Шаге 2)
         double price1 = stepTwo.getProductPrice(product1);
