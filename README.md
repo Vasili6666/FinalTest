@@ -51,3 +51,7 @@ FinalTest/
 ├── allure-results/            # Сырые данные для Allure-отчетов
 ├── pom.xml                    # Конфигурация Maven
 └── README.md                  # Документация проекта
+```
+---
+## Результат тестов
+![img.png](src/test/resources/img.png)
