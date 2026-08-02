@@ -21,7 +21,7 @@ public class LoginPage {
         this.driver = driver;
     }
 
-    // Переход по адресу сайта
+
     public void open() {
         driver.get(url);
     }
@@ -29,10 +29,10 @@ public class LoginPage {
     public void login(String username, String password) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-        // Ожидаем, что URL содержит saucedemo.com
+
         wait.until(ExpectedConditions.urlContains("saucedemo.com"));
 
-        // Ждем появления поля логина
+
         WebElement userInput = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(usernameInput)
         );

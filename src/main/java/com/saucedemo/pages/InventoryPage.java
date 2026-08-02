@@ -11,7 +11,7 @@ public class InventoryPage extends BasePage {
         super(driver);
     }
 
-    // Метод позволяет добавить ЛЮБОЙ товар по его названию (параметризация)
+
     public void addProductToCart(String productName) {
         String xpathLocator = String.format("//div[text()='%s']/ancestor::div[@class='inventory_item']//button", productName);
         driver.findElement(By.xpath(xpathLocator)).click();

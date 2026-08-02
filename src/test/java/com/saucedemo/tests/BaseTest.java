@@ -3,9 +3,12 @@ package com.saucedemo.tests;
 import org.junit.jupiter.api.AfterEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BaseTest {
 
@@ -29,7 +32,18 @@ public class BaseTest {
                 break;
             case "chrome":
             default:
-                driver = new ChromeDriver();
+
+                ChromeOptions options = new ChromeOptions();
+                Map<String, Object> prefs = new HashMap<>();
+                prefs.put("credentials_enable_service", false);
+                prefs.put("profile.password_manager_enabled", false);
+                prefs.put("profile.password_manager_leak_detection", false); // Отключает проверку утечек паролей
+                options.setExperimentalOption("prefs", prefs);
+
+                options.addArguments("--disable-save-password-bubble");
+                options.addArguments("--disable-notifications");
+
+                driver = new ChromeDriver(options);
                 break;
         }
 

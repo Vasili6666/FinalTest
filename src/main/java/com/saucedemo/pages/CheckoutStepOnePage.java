@@ -25,7 +25,7 @@ public class CheckoutStepOnePage {
     public void fillInformation(String firstName, String lastName, String postalCode) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        // Ждем, пока поле ввода станет видимым
+
         WebElement firstNameField = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(firstNameInput)
         );
@@ -40,7 +40,7 @@ public class CheckoutStepOnePage {
         driver.findElement(postalCodeInput).sendKeys(postalCode);
     }
 
-    // Метод перехода на Шаг 2
+
     public void clickContinue() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement button = wait.until(ExpectedConditions.elementToBeClickable(continueButton));
